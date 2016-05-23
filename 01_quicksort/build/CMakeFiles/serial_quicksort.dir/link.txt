@@ -1,0 +1,1 @@
+/usr/bin/c++   -std=c++14   CMakeFiles/serial_quicksort.dir/serial_quicksort.cpp.o  -o serial_quicksort -rdynamic 
