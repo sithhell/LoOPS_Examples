@@ -18,7 +18,7 @@
 #include <vector>
 
 template <typename Iter>
-hpx::future<void> quicksort(Iter begin, Iter end)
+hpx::future<void> quicksort(Iter left, Iter right)
 {
     // Determine the pivot element
     Iter mid = left + (right - left)/2;
