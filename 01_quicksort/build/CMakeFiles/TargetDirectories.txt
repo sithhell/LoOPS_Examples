@@ -1,3 +1,0 @@
-/home/heller/programming/SC15_Examples/01_quicksort/build/CMakeFiles/edit_cache.dir
-/home/heller/programming/SC15_Examples/01_quicksort/build/CMakeFiles/rebuild_cache.dir
-/home/heller/programming/SC15_Examples/01_quicksort/build/CMakeFiles/serial_quicksort.dir
