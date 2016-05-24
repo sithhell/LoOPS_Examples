@@ -1,0 +1,1 @@
+/opt/exp_soft/vo.gridcl.fr/software/CMake-3.4.1/bin/cmake .. -DCMAKE_BUILD_TYPE=Debug
