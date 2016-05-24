@@ -50,19 +50,19 @@ hpx::future<void> quicksort(Iter left, Iter right)
         }
     }
 
-
-    hpx::future<void> left_future;
-    hpx::future<void> right_future;
+    std::vector<hpx::future<void>> futures;
     // Sort the left half asynchronously
     if (left < j)
-        left_future = hpx::async(&quicksort<Iter>, left, j);
+        futures.push_back(hpx::async(&quicksort<Iter>, left, j));
     // Sort the right half asynchronously
     if (i < right)
-        right_future = hpx::async(&quicksort<Iter>, i, right);
-
+        futures.push_back(hpx::async(&quicksort<Iter>, i, right));
 
     // Return a future that becomes ready when both partitions are sorted
-    return hpx::when_all(left_future, right_future);
+    if(futures.empty())
+        return hpx::make_ready_future();
+    else
+        return hpx::when_all(futures);
 }
 
 int main()
