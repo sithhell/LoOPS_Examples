@@ -17,41 +17,7 @@
 #include <iterator>
 #include <vector>
 
-// Partition our input range
 template <typename Iter>
-Iter partition(Iter left, Iter right)
-{
-    // Determine the pivot element
-    Iter mid = left + (right - left)/2;
-    auto && pivot = *mid;
-
-    Iter i = left;
-    Iter j = right - 1;
-
-    while (true)
-    {
-        // Move the right end to the left
-        // as long as it's larger than the pivot
-        //do
-        while (*j > pivot)
-            --j;
-
-        // Move the left end to the right
-        // as long as it's smaller than the pivot
-        while (*i < pivot)
-            ++i;
-
-        // If we didn't move too far to the right, swap
-        if (i < j)
-            std::swap(*i, *j);
-        // Otherwise return the iterator dividing the two partitions
-        else
-            return j;
-    }
-}
-
-template <typename Iter>
-
 hpx::future<void> quicksort(Iter begin, Iter end)
 {
     // Determine the pivot element
@@ -85,18 +51,18 @@ hpx::future<void> quicksort(Iter begin, Iter end)
     }
 
 
-    hpx::future<void> left;
-    hpx::future<void> right;
+    hpx::future<void> left_future;
+    hpx::future<void> right_future;
     // Sort the left half asynchronously
     if (left < j)
-        left = hpx::async(&quicksort<Iter>, left, j);
+        left_future = hpx::async(&quicksort<Iter>, left, j);
     // Sort the right half asynchronously
     if (i < right)
-        right = hpx::async(&quicksort<Iter>, i, right);
+        right_future = hpx::async(&quicksort<Iter>, i, right);
 
 
     // Return a future that becomes ready when both partitions are sorted
-    return hpx::when_all(left, right);
+    return hpx::when_all(left_future, right_future);
 }
 
 int main()
